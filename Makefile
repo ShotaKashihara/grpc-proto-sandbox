@@ -5,13 +5,13 @@ install:
 
 generate:
 	protoc \
-		-I . \
+		-I ./protos \
 		-I third_party/grpc-gateway/ \
 		-I third_party/googleapis \
-		--grpc-gateway_out=paths=source_relative:./golang \
-		--go_out=plugins=grpc,paths=source_relative:./golang \
+		--go_out=plugins=grpc,paths=source_relative:./golang/. \
+		--grpc-gateway_out=paths=source_relative:./golang/. \
     --swift_out=./swift \
     --swift_opt=Visibility=Public \
     --grpc-swift_out=./swift \
     --grpc-swift_opt=Visibility=Public \
-		*.proto
+		protos/*.proto

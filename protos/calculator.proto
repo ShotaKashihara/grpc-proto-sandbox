@@ -1,0 +1,24 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/ShotaKashihara/grpc-proto-sandbox;proto";
+
+enum Operation {
+  UNSPECIFIED = 0;
+  ADD = 1;
+  SUBTRACT = 2;
+}
+
+message BinaryOperation {
+  int32 first_operand = 1;
+  int32 second_operand = 2;
+  Operation operation = 3;
+};
+
+message CalculationResult {
+  int32 result = 1;
+};
+
+service Calculator {
+  rpc Calculate (BinaryOperation) returns (CalculationResult);
+};

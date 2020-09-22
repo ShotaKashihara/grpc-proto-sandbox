@@ -25,27 +25,27 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Example_UserServiceClient, then call methods of this protocol to make API calls.
-public protocol Example_UserServiceClientProtocol: GRPCClient {
+/// Usage: instantiate UserServiceClient, then call methods of this protocol to make API calls.
+public protocol UserServiceClientProtocol: GRPCClient {
   func addUser(
-    _ request: Example_AddUserRequest,
+    _ request: AddUserRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Example_AddUserRequest, Example_User>
+  ) -> UnaryCall<AddUserRequest, User>
 
   func listUsers(
-    _ request: Example_ListUsersRequest,
+    _ request: ListUsersRequest,
     callOptions: CallOptions?,
-    handler: @escaping (Example_User) -> Void
-  ) -> ServerStreamingCall<Example_ListUsersRequest, Example_User>
+    handler: @escaping (User) -> Void
+  ) -> ServerStreamingCall<ListUsersRequest, User>
 
   func listUsers2(
-    _ request: Example_ListUsersRequest,
+    _ request: ListUsersRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Example_ListUsersRequest, Example_User>
+  ) -> UnaryCall<ListUsersRequest, User>
 
 }
 
-extension Example_UserServiceClientProtocol {
+extension UserServiceClientProtocol {
 
   /// Unary call to AddUser
   ///
@@ -54,11 +54,11 @@ extension Example_UserServiceClientProtocol {
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
   public func addUser(
-    _ request: Example_AddUserRequest,
+    _ request: AddUserRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Example_AddUserRequest, Example_User> {
+  ) -> UnaryCall<AddUserRequest, User> {
     return self.makeUnaryCall(
-      path: "/example.UserService/AddUser",
+      path: "/UserService/AddUser",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions
     )
@@ -72,12 +72,12 @@ extension Example_UserServiceClientProtocol {
   ///   - handler: A closure called when each response is received from the server.
   /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
   public func listUsers(
-    _ request: Example_ListUsersRequest,
+    _ request: ListUsersRequest,
     callOptions: CallOptions? = nil,
-    handler: @escaping (Example_User) -> Void
-  ) -> ServerStreamingCall<Example_ListUsersRequest, Example_User> {
+    handler: @escaping (User) -> Void
+  ) -> ServerStreamingCall<ListUsersRequest, User> {
     return self.makeServerStreamingCall(
-      path: "/example.UserService/ListUsers",
+      path: "/UserService/ListUsers",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       handler: handler
@@ -91,22 +91,22 @@ extension Example_UserServiceClientProtocol {
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
   public func listUsers2(
-    _ request: Example_ListUsersRequest,
+    _ request: ListUsersRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Example_ListUsersRequest, Example_User> {
+  ) -> UnaryCall<ListUsersRequest, User> {
     return self.makeUnaryCall(
-      path: "/example.UserService/ListUsers2",
+      path: "/UserService/ListUsers2",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions
     )
   }
 }
 
-public final class Example_UserServiceClient: Example_UserServiceClientProtocol {
+public final class UserServiceClient: UserServiceClientProtocol {
   public let channel: GRPCChannel
   public var defaultCallOptions: CallOptions
 
-  /// Creates a client for the example.UserService service.
+  /// Creates a client for the UserService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
@@ -118,14 +118,14 @@ public final class Example_UserServiceClient: Example_UserServiceClientProtocol 
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-public protocol Example_UserServiceProvider: CallHandlerProvider {
-  func addUser(request: Example_AddUserRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Example_User>
-  func listUsers(request: Example_ListUsersRequest, context: StreamingResponseCallContext<Example_User>) -> EventLoopFuture<GRPCStatus>
-  func listUsers2(request: Example_ListUsersRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Example_User>
+public protocol UserServiceProvider: CallHandlerProvider {
+  func addUser(request: AddUserRequest, context: StatusOnlyCallContext) -> EventLoopFuture<User>
+  func listUsers(request: ListUsersRequest, context: StreamingResponseCallContext<User>) -> EventLoopFuture<GRPCStatus>
+  func listUsers2(request: ListUsersRequest, context: StatusOnlyCallContext) -> EventLoopFuture<User>
 }
 
-extension Example_UserServiceProvider {
-  public var serviceName: Substring { return "example.UserService" }
+extension UserServiceProvider {
+  public var serviceName: Substring { return "UserService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.

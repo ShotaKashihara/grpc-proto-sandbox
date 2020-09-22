@@ -1,8 +1,7 @@
-syntax="proto3";
-package example;
+syntax = "proto3";
 import "google/api/annotations.proto";
 
-option go_package = "github.com/ShotaKashihara/grpc-proto-sandbox;example";
+option go_package = "github.com/ShotaKashihara/grpc-proto-sandbox;proto";
 
 service UserService {
   rpc AddUser(AddUserRequest) returns (User) {
