@@ -69,27 +69,3 @@ public final class CalculatorClient: CalculatorClientProtocol {
   }
 }
 
-/// To build a server, implement a class that conforms to this protocol.
-public protocol CalculatorProvider: CallHandlerProvider {
-  func calculate(request: BinaryOperation, context: StatusOnlyCallContext) -> EventLoopFuture<CalculationResult>
-}
-
-extension CalculatorProvider {
-  public var serviceName: Substring { return "Calculator" }
-
-  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
-  /// Returns nil for methods not handled by this service.
-  public func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
-    case "Calculate":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.calculate(request: request, context: context)
-        }
-      }
-
-    default: return nil
-    }
-  }
-}
-

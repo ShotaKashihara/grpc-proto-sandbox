@@ -20,5 +20,9 @@ message CalculationResult {
 };
 
 service Calculator {
-  rpc Calculate (BinaryOperation) returns (CalculationResult);
+  rpc Calculate (BinaryOperation) returns (CalculationResult) {
+    option (google.api.http) = {
+      get: "/api/v1/calculate"
+    };
+  }
 };

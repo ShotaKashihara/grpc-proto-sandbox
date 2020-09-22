@@ -13,5 +13,5 @@ generate:
     --swift_out=./swift \
     --swift_opt=Visibility=Public \
     --grpc-swift_out=./swift \
-    --grpc-swift_opt=Visibility=Public \
+    --grpc-swift_opt=Visibility=Public,Server=false \
 		protos/*.proto
