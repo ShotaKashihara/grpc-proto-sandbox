@@ -1,0 +1,32 @@
+syntax="proto3";
+package example;
+import "google/api/annotations.proto";
+
+option go_package = "github.com/ShotaKashihara/grpc-proto-sandbox;example";
+
+service UserService {
+  rpc AddUser(AddUserRequest) returns (User) {
+    option (google.api.http) = {
+      post: "/api/v1/users"
+      body: "*"
+    };
+  }
+  rpc ListUsers(ListUsersRequest) returns (stream User) {
+    option (google.api.http) = {
+      get: "/api/v1/users"
+    };
+  }
+  rpc ListUsers2(ListUsersRequest) returns (User) {
+    option (google.api.http) = {
+      get: "/api/v2/users"
+    };
+  }
+}
+
+message AddUserRequest {}
+
+message ListUsersRequest {}
+
+message User {
+  string id = 1;
+}
